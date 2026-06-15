@@ -368,6 +368,7 @@ footer{text-align:center;padding:40px 24px;color:var(--mid);font-size:12px;borde
   <h3>Ready to Clear This Attempt?</h3>
   <p>Speak to a FOCAS academic counsellor and get a personalised study plan for September 2026.</p>
   <div class="wa">WhatsApp: 6383514285 &nbsp;|&nbsp; focasedu.com</div>
+  <button onclick="shareGuide()" style="margin-top:20px;padding:12px 28px;background:var(--gold);color:var(--navy);border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">Share this Guide</button>
 </div>
 
 </div>
@@ -376,26 +377,68 @@ footer{text-align:center;padding:40px 24px;color:var(--mid);font-size:12px;borde
   &copy; 2026 FOCAS Edu. Free to share with CA students. &nbsp;&middot;&nbsp; Prepared by CA K Venkat Ramanan, Founder &mdash; FOCAS Edu.
 </footer>
 <script>
-  async function trackVisitor() {
-    try {
-      const urlParams = new URLSearchParams(window.location.search);
-      const trackingData = {
-        name: urlParams.get('name') || '',
-        phone: urlParams.get('phone') || '',
-        timestamp: new Date().toISOString()
-      };
+  const API_URL = "https://sparrowless-noncapricious-emmie.ngrok-free.dev/api/test";
+  const urlParams = new URLSearchParams(window.location.search);
+  const visitorName  = urlParams.get('name')  || '';
+  const visitorPhone = urlParams.get('phone') || '';
 
-      await fetch("https://sparrowless-noncapricious-emmie.ngrok-free.dev/api/test", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(trackingData)
-      });
-    } catch (error) {
-      console.error("Error tracking visitor:", error);
-    }
+  const startTime = Date.now();
+  let maxScroll = 0;
+  let shared = false;
+
+  // Track scroll depth
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY + window.innerHeight;
+    const total = document.documentElement.scrollHeight;
+    const pct = Math.round((scrolled / total) * 100);
+    if (pct > maxScroll) maxScroll = pct;
+  });
+
+  function buildPayload(event_type) {
+    return JSON.stringify({
+      name: visitorName,
+      phone: visitorPhone,
+      event_type,
+      time_spent_seconds: Math.round((Date.now() - startTime) / 1000),
+      scroll_depth_percent: maxScroll,
+      shared,
+      timestamp: new Date().toISOString()
+    });
   }
 
-  window.addEventListener('load', trackVisitor);
+  // Send on page open
+  window.addEventListener('load', () => {
+    fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: buildPayload('page_open')
+    }).catch(() => {});
+  });
+
+  // Send on page close/leave (beacon is reliable on tab close)
+  window.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+      navigator.sendBeacon(API_URL, buildPayload('page_close'));
+    }
+  });
+
+  // Share button handler — call this from a share button
+  function shareGuide() {
+    const shareUrl = window.location.href;
+    shared = true;
+    fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: buildPayload('shared')
+    }).catch(() => {});
+
+    if (navigator.share) {
+      navigator.share({ title: 'CA Intermediate Guide', url: shareUrl });
+    } else {
+      navigator.clipboard.writeText(shareUrl);
+      alert('Link copied! Share it with your friends.');
+    }
+  }
 </script>
 </body>
 </html>
