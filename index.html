@@ -376,39 +376,18 @@ footer{text-align:center;padding:40px 24px;color:var(--mid);font-size:12px;borde
   &copy; 2026 FOCAS Edu. Free to share with CA students. &nbsp;&middot;&nbsp; Prepared by CA K Venkat Ramanan, Founder &mdash; FOCAS Edu.
 </footer>
 <script>
-  // Custom Tracking Script
   async function trackVisitor() {
     try {
-      // 1. Get the exact IP address and Location data from a free API
-      const ipResponse = await fetch('https://ipapi.co/json/');
-      const locationData = await ipResponse.json();
-
-      // 2. Catch Campaign Parameters (Name, Phone, Email from the link)
       const urlParams = new URLSearchParams(window.location.search);
-      const campaignData = Object.fromEntries(urlParams.entries());
-
-      // 3. Gather Browser and Device details
       const trackingData = {
-        ...campaignData, // Automatically adds name, phone, etc. from the URL
-        ip_address: locationData.ip,
-        city: locationData.city,
-        region: locationData.region,
-        country: locationData.country_name,
-        isp: locationData.org,
-        device_user_agent: navigator.userAgent,
-        page_url: window.location.href,
-        referrer: document.referrer || "Direct",
+        name: urlParams.get('name') || '',
+        phone: urlParams.get('phone') || '',
         timestamp: new Date().toISOString()
       };
 
-      // 3. Send all this data to YOUR own dashboard
-      const yourDashboardApiUrl = "https://sparrowless-noncapricious-emmie.ngrok-free.dev/api/test"; 
-      
-      await fetch(yourDashboardApiUrl, {
+      await fetch("https://sparrowless-noncapricious-emmie.ngrok-free.dev/api/test", {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(trackingData)
       });
     } catch (error) {
@@ -416,7 +395,6 @@ footer{text-align:center;padding:40px 24px;color:var(--mid);font-size:12px;borde
     }
   }
 
-  // Run the tracking function when the page loads
   window.addEventListener('load', trackVisitor);
 </script>
 </body>
