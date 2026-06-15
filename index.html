@@ -64,6 +64,16 @@ nav .links a:hover{color:var(--gold)}
 .styled-table tbody tr:nth-child(odd){background:var(--white)}
 .styled-table tbody td{padding:13px 16px;vertical-align:top;line-height:1.6;color:var(--dark)}
 .styled-table tbody td:first-child{font-weight:700;color:var(--navy);white-space:nowrap}
+@media(max-width:600px){
+  .styled-table thead{display:none}
+  .styled-table tbody tr{display:block;border-radius:10px;box-shadow:0 1px 6px rgba(13,31,60,.1);margin-bottom:14px;border:1px solid rgba(13,31,60,.08)}
+  .styled-table tbody tr:nth-child(even),.styled-table tbody tr:nth-child(odd){background:var(--white)}
+  .styled-table tbody td{display:block;padding:10px 14px;white-space:normal;border-bottom:1px solid rgba(13,31,60,.06)}
+  .styled-table tbody td:last-child{border-bottom:none}
+  .styled-table tbody td:first-child{background:var(--navy);color:var(--white);border-radius:9px 9px 0 0;font-size:14px;padding:12px 14px;white-space:normal}
+  .styled-table tbody td::before{content:attr(data-label);display:block;font-size:10px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:rgba(13,31,60,.4);margin-bottom:4px}
+  .styled-table tbody td:first-child::before{display:none}
+}
 
 .subject-header{border-radius:12px 12px 0 0;padding:20px 28px;display:flex;align-items:center;justify-content:space-between}
 .subject-header h2{font-size:18px;font-weight:800;color:var(--white)}
@@ -172,12 +182,12 @@ footer{text-align:center;padding:40px 24px;color:var(--mid);font-size:12px;borde
 <table class="styled-table">
   <thead><tr><th>Paper</th><th>Key Topics — May 2026</th><th>Sept 2026 Signal</th></tr></thead>
   <tbody>
-    <tr><td>Advanced Accounting</td><td>9 Accounting Standards (AS 7, 10, 11, 13, 15, 20, 24, 25). Internal Reconstruction x2, Amalgamation, Consolidated P&amp;L, Schedule III.</td><td>AS-heavy again. Reconstruction and Amalgamation are evergreen.</td></tr>
-    <tr><td>Corporate Law</td><td>CSR (S.135), Deposits (S.73/74), LLP Act, FEMA LRS limits, Sweat Equity, DRR on Debentures, General Clauses Act.</td><td>Section numbers + exact thresholds matter. Application-based MCQs continuing.</td></tr>
-    <tr><td>Taxation</td><td>Slump sale with net worth trap, Clubbing gift chain, NPS deductions, S.44ADA advance tax, FPI capital gains, TDS on luxury goods. GST: Composition, place of supply.</td><td>Every question has a twist. New provisions will repeat.</td></tr>
-    <tr><td>Costing</td><td>Inter-process profit (2-stage), Machine hour rate with AI system, Batch costing, Operating costing, Break-even (marginal costing).</td><td>Process costing with unrealised profit is a perennial trap. Marginal costing BEP expected.</td></tr>
-    <tr><td>Auditing</td><td>SA 530 (sampling risk), SA 580 (written rep.), SA 300 (planning), SQC 1, Banking audit (NPA/SMA, income recognition), IFC.</td><td>SA-based entire paper. Banking audit is a new pattern — expect again.</td></tr>
-    <tr><td>FM &amp; SM</td><td>FM: Capital budgeting, cost of capital, working capital. SM: Theoretical with ICAI keyword precision.</td><td>FM is numerical accuracy. SM is ICAI language. Both reward preparation depth.</td></tr>
+    <tr><td>Advanced Accounting</td><td data-label="Key Topics — May 2026">9 Accounting Standards (AS 7, 10, 11, 13, 15, 20, 24, 25). Internal Reconstruction x2, Amalgamation, Consolidated P&amp;L, Schedule III.</td><td data-label="Sept 2026 Signal">AS-heavy again. Reconstruction and Amalgamation are evergreen.</td></tr>
+    <tr><td>Corporate Law</td><td data-label="Key Topics — May 2026">CSR (S.135), Deposits (S.73/74), LLP Act, FEMA LRS limits, Sweat Equity, DRR on Debentures, General Clauses Act.</td><td data-label="Sept 2026 Signal">Section numbers + exact thresholds matter. Application-based MCQs continuing.</td></tr>
+    <tr><td>Taxation</td><td data-label="Key Topics — May 2026">Slump sale with net worth trap, Clubbing gift chain, NPS deductions, S.44ADA advance tax, FPI capital gains, TDS on luxury goods. GST: Composition, place of supply.</td><td data-label="Sept 2026 Signal">Every question has a twist. New provisions will repeat.</td></tr>
+    <tr><td>Costing</td><td data-label="Key Topics — May 2026">Inter-process profit (2-stage), Machine hour rate with AI system, Batch costing, Operating costing, Break-even (marginal costing).</td><td data-label="Sept 2026 Signal">Process costing with unrealised profit is a perennial trap. Marginal costing BEP expected.</td></tr>
+    <tr><td>Auditing</td><td data-label="Key Topics — May 2026">SA 530 (sampling risk), SA 580 (written rep.), SA 300 (planning), SQC 1, Banking audit (NPA/SMA, income recognition), IFC.</td><td data-label="Sept 2026 Signal">SA-based entire paper. Banking audit is a new pattern — expect again.</td></tr>
+    <tr><td>FM &amp; SM</td><td data-label="Key Topics — May 2026">FM: Capital budgeting, cost of capital, working capital. SM: Theoretical with ICAI keyword precision.</td><td data-label="Sept 2026 Signal">FM is numerical accuracy. SM is ICAI language. Both reward preparation depth.</td></tr>
   </tbody>
 </table>
 
@@ -381,7 +391,9 @@ footer{text-align:center;padding:40px 24px;color:var(--mid);font-size:12px;borde
 
 </div>
 
-<div class="page"><p class="section-label">FOCAS Edu — Programmes &amp; Kits</p><div style="display:flex;flex-direction:column;gap:24px;margin-bottom:40px"><img src="https://res.cloudinary.com/dvfybzpcd/image/upload/q_auto/f_auto/v1781518092/WhatsApp_Image_2026-06-15_at_15.34.24_1_eseas3.jpg" alt="Join FOCAS — 1 Tutor : 10 Students" style="width:100%;border-radius:12px;box-shadow:0 4px 20px rgba(13,31,60,.15)"/><img src="https://res.cloudinary.com/dvfybzpcd/image/upload/q_auto/f_auto/v1781518093/WhatsApp_Image_2026-06-15_at_15.34.24_zzdtzd.jpg" alt="Last Attempt Kit — FOCAS Edu" style="width:100%;border-radius:12px;box-shadow:0 4px 20px rgba(13,31,60,.15)"/></div></div><footer>
+<div class="page"><p class="section-label">FOCAS Edu — Programmes &amp; Kits</p><div style="display:flex;flex-direction:column;gap:24px;margin-bottom:40px"><img src="https://res.cloudinary.com/dvfybzpcd/image/upload/q_auto/f_auto/v1781518092/WhatsApp_Image_2026-06-15_at_15.34.24_1_eseas3.jpg" alt="Join FOCAS — 1 Tutor : 10 Students" style="width:100%;border-radius:12px;box-shadow:0 4px 20px rgba(13,31,60,.15)"/><a href="https://kit.focasedu.com/products/both-groups-combo-pro" target="_blank" style="display:block;margin-bottom:12px;text-align:center;padding:14px;background:var(--gold);color:var(--navy);border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;">Get the Kit ↗</a>
+<a href="https://kit.focasedu.com/products/both-groups-combo-pro" target="_blank" style="display:block;"><img src="https://res.cloudinary.com/dvfybzpcd/image/upload/q_auto/f_auto/v1781518093/WhatsApp_Image_2026-06-15_at_15.34.24_zzdtzd.jpg" alt="Last Attempt Kit — FOCAS Edu" style="width:100%;border-radius:12px;box-shadow:0 4px 20px rgba(13,31,60,.15)"/></a>
+<a href="https://wa.me/916383514285" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:12px;text-align:center;padding:14px;background:#25D366;color:#fff;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Chat on WhatsApp</a></div></div><footer>
   &copy; 2026 FOCAS Edu. Free to share with CA students. &nbsp;&middot;&nbsp; Prepared by CA K Venkat Ramanan, Founder &mdash; FOCAS Edu.
 </footer>
 <script>
