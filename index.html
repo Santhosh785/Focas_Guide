@@ -382,16 +382,47 @@ footer{text-align:center;padding:40px 24px;color:var(--mid);font-size:12px;borde
   const visitorName  = urlParams.get('name')  || '';
   const visitorPhone = urlParams.get('phone') || '';
 
+  // Use phone as unique key so each person's counts are separate
+  const storageKey = 'focas_' + (visitorPhone || 'anon');
+
+  // Load existing counts from localStorage (persists across refreshes)
+  const stored = JSON.parse(localStorage.getItem(storageKey) || '{"refreshCount":0,"scrollCount":0}');
+  stored.refreshCount += 1;           // increment every page load = refresh
+  localStorage.setItem(storageKey, JSON.stringify(stored));
+
   const startTime = Date.now();
   let maxScroll = 0;
   let shared = false;
+  let scrollCount = stored.scrollCount;
 
-  // Track scroll depth
+  // Throttle: send scroll update at most once every 10 seconds
+  let lastScrollSent = 0;
+
+  // Count scroll gestures (each pause > 400ms = 1 scroll action)
+  let scrollTimer = null;
   window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY + window.innerHeight;
-    const total = document.documentElement.scrollHeight;
-    const pct = Math.round((scrolled / total) * 100);
+    // Track max depth
+    const pct = Math.round(((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight) * 100);
     if (pct > maxScroll) maxScroll = pct;
+
+    // Debounce: fires after user stops scrolling for 400ms
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      scrollCount += 1;
+      stored.scrollCount = scrollCount;
+      localStorage.setItem(storageKey, JSON.stringify(stored));
+
+      // Send real-time scroll update (max once every 10 seconds)
+      const now = Date.now();
+      if (now - lastScrollSent >= 10000) {
+        lastScrollSent = now;
+        fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: buildPayload('scroll_update')
+        }).catch(() => {});
+      }
+    }, 400);
   });
 
   function buildPayload(event_type) {
@@ -401,6 +432,8 @@ footer{text-align:center;padding:40px 24px;color:var(--mid);font-size:12px;borde
       event_type,
       time_spent_seconds: Math.round((Date.now() - startTime) / 1000),
       scroll_depth_percent: maxScroll,
+      scroll_count: scrollCount,
+      refresh_count: stored.refreshCount,
       shared,
       timestamp: new Date().toISOString()
     });
@@ -415,16 +448,15 @@ footer{text-align:center;padding:40px 24px;color:var(--mid);font-size:12px;borde
     }).catch(() => {});
   });
 
-  // Send on page close/leave (beacon is reliable on tab close)
+  // Send on page close/leave
   window.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
       navigator.sendBeacon(API_URL, buildPayload('page_close'));
     }
   });
 
-  // Share button handler — call this from a share button
+  // Share button
   function shareGuide() {
-    const shareUrl = window.location.href;
     shared = true;
     fetch(API_URL, {
       method: 'POST',
@@ -433,9 +465,9 @@ footer{text-align:center;padding:40px 24px;color:var(--mid);font-size:12px;borde
     }).catch(() => {});
 
     if (navigator.share) {
-      navigator.share({ title: 'CA Intermediate Guide', url: shareUrl });
+      navigator.share({ title: 'CA Intermediate Guide', url: window.location.href });
     } else {
-      navigator.clipboard.writeText(shareUrl);
+      navigator.clipboard.writeText(window.location.href);
       alert('Link copied! Share it with your friends.');
     }
   }
