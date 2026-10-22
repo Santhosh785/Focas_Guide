@@ -114,6 +114,30 @@ nav .links a:hover{color:var(--gold)}
 .cta-final p{font-size:13px;color:var(--mid);margin-bottom:20px;line-height:1.65}
 .cta-final .wa{font-size:20px;font-weight:800;color:var(--gold)}
 
+.reg-btn{display:inline-block;padding:14px 28px;background:var(--navy);color:var(--gold);border:2px solid var(--gold);border-radius:8px;font-family:inherit;font-size:15px;font-weight:800;cursor:pointer;transition:transform .15s}
+.reg-btn:hover{transform:translateY(-1px)}
+.cover .reg-btn{background:var(--gold);color:var(--navy);display:table;margin:0 auto 24px}
+.reg-overlay{position:fixed;inset:0;z-index:200;background:rgba(13,31,60,.7);display:none;align-items:center;justify-content:center;padding:16px}
+.reg-overlay.open{display:flex}
+.reg-modal{background:var(--white);border-radius:14px;width:100%;max-width:420px;padding:28px 24px;position:relative;border-top:5px solid var(--gold)}
+.reg-modal h3{font-size:19px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.reg-modal .sub{font-size:13px;color:var(--mid);margin-bottom:20px;line-height:1.5}
+.reg-close{position:absolute;top:10px;right:14px;background:none;border:none;font-size:26px;color:var(--mid);cursor:pointer;line-height:1}
+.reg-field{margin-bottom:14px}
+.reg-field label{display:block;font-size:12px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.reg-field input{width:100%;padding:12px;border:1px solid #cdd5e4;border-radius:8px;font-family:inherit;font-size:15px;color:var(--dark)}
+.reg-field input:focus{outline:2px solid var(--gold);border-color:var(--gold)}
+.reg-phone{display:flex}
+.reg-phone span{padding:12px;background:var(--light);border:1px solid #cdd5e4;border-right:none;border-radius:8px 0 0 8px;font-size:15px;font-weight:600;color:var(--navy)}
+.reg-phone input{border-radius:0 8px 8px 0}
+.reg-err{font-size:12px;color:#B5351A;margin-top:4px;display:none}
+.reg-submit{width:100%;padding:14px;margin-top:6px;background:var(--gold);color:var(--navy);border:none;border-radius:8px;font-family:inherit;font-size:15px;font-weight:800;cursor:pointer}
+.reg-submit:disabled{opacity:.6;cursor:wait}
+.reg-msg{font-size:13px;color:#B5351A;margin-top:10px;text-align:center;display:none}
+.reg-success{text-align:center;display:none}
+.reg-success .tick{font-size:44px;margin-bottom:8px}
+.reg-success a{display:block;margin-top:18px;padding:14px;background:#25D366;color:#fff;border-radius:8px;font-weight:700;text-decoration:none}
+
 footer{text-align:center;padding:40px 24px;color:var(--mid);font-size:12px;border-top:1px solid #dde3f0;margin-top:16px}
 
 @media(max-width:640px){
@@ -154,6 +178,7 @@ footer{text-align:center;padding:40px 24px;color:var(--mid);font-size:12px;borde
     <span class="pill">Auditing &amp; Ethics</span>
     <span class="pill">FM &amp; Strategic Management</span>
   </div>
+  <button type="button" class="reg-btn" onclick="openRegister()">Want a Customised Plan for You? Register →</button>
   <div class="cta-band">
     <p>Speak to an academic counsellor</p>
     <a href="https://wa.me/916383514285" target="_blank" style="color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:8px;">
@@ -386,6 +411,7 @@ footer{text-align:center;padding:40px 24px;color:var(--mid);font-size:12px;borde
     &nbsp;|&nbsp;
     <a href="https://focasedu.com/" target="_blank" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">focasedu.com ↗</a>
   </div>
+  <div style="margin-top:24px"><button type="button" class="reg-btn" onclick="openRegister()">Want a Customised Plan for You? Register →</button></div>
   <button onclick="shareGuide()" style="margin-top:20px;padding:12px 28px;background:var(--gold);color:var(--navy);border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">Share this Guide</button>
 </div>
 
@@ -396,6 +422,40 @@ footer{text-align:center;padding:40px 24px;color:var(--mid);font-size:12px;borde
 <a href="https://wa.me/916383514285" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:12px;text-align:center;padding:14px;background:#25D366;color:#fff;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Chat on WhatsApp</a></div></div><footer>
   &copy; 2026 FOCAS Edu. Free to share with CA students. &nbsp;&middot;&nbsp; Prepared by CA K Venkat Ramanan, Founder &mdash; FOCAS Edu.
 </footer>
+
+<div class="reg-overlay" id="regOverlay" role="dialog" aria-modal="true" aria-labelledby="regTitle">
+  <div class="reg-modal">
+    <button type="button" class="reg-close" onclick="closeRegister()" aria-label="Close">&times;</button>
+    <form id="regForm" novalidate>
+      <h3 id="regTitle">Get Your Customised Plan</h3>
+      <p class="sub">Share your details and a FOCAS academic counsellor will build a study plan for your January 2027 attempt.</p>
+      <div class="reg-field">
+        <label for="regFirst">First Name *</label>
+        <input id="regFirst" name="first_name" type="text" autocomplete="given-name" maxlength="40" required>
+        <div class="reg-err" data-err="first_name"></div>
+      </div>
+      <div class="reg-field">
+        <label for="regLast">Last Name *</label>
+        <input id="regLast" name="last_name" type="text" autocomplete="family-name" maxlength="80" required>
+        <div class="reg-err" data-err="last_name"></div>
+      </div>
+      <div class="reg-field">
+        <label for="regPhone">Phone Number *</label>
+        <div class="reg-phone"><span>+91</span><input id="regPhone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="10" placeholder="10-digit mobile number" required></div>
+        <div class="reg-err" data-err="phone"></div>
+      </div>
+      <button type="submit" class="reg-submit">Get My Customised Plan</button>
+      <p class="reg-msg" id="regMsg">Something went wrong — please try again or WhatsApp us at 6383514285.</p>
+    </form>
+    <div class="reg-success" id="regSuccess">
+      <div class="tick">✅</div>
+      <h3>Thanks! You're registered.</h3>
+      <p class="sub">Our counsellor will call you shortly with your customised plan.</p>
+      <a href="https://wa.me/916383514285" target="_blank">Chat on WhatsApp now</a>
+    </div>
+  </div>
+</div>
+
 <script>
   const API_URL = "https://campaign.focasedu.in/api/test";
   const urlParams = new URLSearchParams(window.location.search);
@@ -502,6 +562,64 @@ footer{text-align:center;padding:40px 24px;color:var(--mid);font-size:12px;borde
       alert('Link copied! Share it with your friends.');
     }
   }
+
+  // Customised-plan registration → /api/lead → Zoho Flow → Bigin
+  const regOverlay = document.getElementById('regOverlay');
+  const regForm    = document.getElementById('regForm');
+
+  function openRegister() {
+    const phoneDigits = visitorPhone.replace(/\D/g, '').slice(-10);
+    const [first, ...rest] = visitorName.trim().split(/\s+/);
+    if (!regForm.first_name.value && first) regForm.first_name.value = first;
+    if (!regForm.last_name.value && rest.length) regForm.last_name.value = rest.join(' ');
+    if (!regForm.phone.value && phoneDigits) regForm.phone.value = phoneDigits;
+    regOverlay.classList.add('open');
+    regForm.first_name.focus();
+  }
+
+  function closeRegister() { regOverlay.classList.remove('open'); }
+
+  regOverlay.addEventListener('click', function(e) { if (e.target === regOverlay) closeRegister(); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeRegister(); });
+
+  function showErr(name, msg) {
+    const el = regForm.querySelector('[data-err="' + name + '"]');
+    el.textContent = msg;
+    el.style.display = msg ? 'block' : 'none';
+  }
+
+  regForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const data = {
+      first_name: regForm.first_name.value.trim(),
+      last_name:  regForm.last_name.value.trim(),
+      phone:      regForm.phone.value.replace(/\D/g, '')
+    };
+    let ok = true;
+    showErr('first_name', data.first_name ? '' : 'First name is required'); ok = ok && !!data.first_name;
+    showErr('last_name',  data.last_name  ? '' : 'Last name is required');  ok = ok && !!data.last_name;
+    const phoneOk = /^[6-9]\d{9}$/.test(data.phone);
+    showErr('phone', phoneOk ? '' : 'Enter a valid 10-digit mobile number'); ok = ok && phoneOk;
+    if (!ok) return;
+
+    const btn = regForm.querySelector('.reg-submit');
+    const msg = document.getElementById('regMsg');
+    btn.disabled = true; btn.textContent = 'Submitting…'; msg.style.display = 'none';
+
+    fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(function(res) {
+      if (!res.ok) throw new Error('status ' + res.status);
+      regForm.style.display = 'none';
+      document.getElementById('regSuccess').style.display = 'block';
+      if (typeof gtag === 'function') gtag('event', 'register_submit', { lead_source: 'Guide-lead' });
+    }).catch(function() {
+      msg.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Get My Customised Plan';
+    });
+  });
 </script>
 </body>
 </html>
